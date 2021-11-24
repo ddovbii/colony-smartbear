@@ -8,7 +8,7 @@ infrastructure:
   connectivity:
     internal:
       - port_info:
-          port: 27017
+          port: 8080
   compute:
     spec:            
       aws:
@@ -16,20 +16,17 @@ infrastructure:
         
 configuration:
   start:
-    script: mongodb-command.sh
+    script: salesforce-virt-command.sh
   initialization:
-    script: mongodb.sh  # will install mongodb 3.4
+    script: salesforce-virt.sh
   healthcheck:
     timeout: 1000
-    wait_for_ports: 27017
+    wait_for_ports: 8080
     
 source:
   image:    
-    ami:
-      - id: ami-08660f1c6fb6b01e7
-        region: eu-west-1
-        username: ubuntu
-      - id: ami-09eb5e8a83c7aa890
+    ami:  
+      - id: ami-009ed7781b3b1268b # custom private ami
         region: us-west-1
         username: ubuntu
   os_type: linux
